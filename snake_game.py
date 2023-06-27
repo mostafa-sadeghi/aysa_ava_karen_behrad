@@ -71,7 +71,8 @@ def go_down():
 
 
 def reset():
-    pass
+    snake_head.goto(0, 0)
+    snake_head.direction = ""
 
 
 main_surface.listen()
@@ -79,7 +80,7 @@ main_surface.onkeypress(go_up, "Up")
 main_surface.onkeypress(go_down, "Down")
 main_surface.onkeypress(go_right, "Right")
 main_surface.onkeypress(go_left, "Left")
-
+snake_bodies = []
 running = True
 while running == True:
     score_turtle.clear()
@@ -88,11 +89,13 @@ while running == True:
     main_surface.update()
     if snake_head.distance(food) < 20:
         score += 1
-
         change_food_position()
+        new_body = make_turtle("square", "grey")
+        # TODO
 
     if snake_head.xcor() > 290 or snake_head.xcor() < -290 or snake_head.ycor() > 290 or snake_head.ycor() < -290:
         reset()
+        score = 0
 
     move()
     sleep(0.2)
