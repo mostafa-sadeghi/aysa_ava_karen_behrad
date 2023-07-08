@@ -55,19 +55,21 @@ score_turtle.goto(0, 260)
 
 
 def go_up():
-    snake_head.direction = "up"
-
+    if snake_head.direction != "down":
+        snake_head.direction = "up"
 
 def go_left():
-    snake_head.direction = "left"
-
+    if snake_head.direction != "right":
+        snake_head.direction = "left"
 
 def go_right():
-    snake_head.direction = "right"
+    if snake_head.direction != "left":
+        snake_head.direction = "right"
 
 
 def go_down():
-    snake_head.direction = "down"
+    if snake_head.direction != "up":
+        snake_head.direction = "down"
 
 
 def reset():
@@ -90,8 +92,18 @@ while running == True:
     if snake_head.distance(food) < 20:
         score += 1
         change_food_position()
-        new_body = make_turtle("square", "grey")
-        # TODO
+        new_body = make_turtle("square", "cyan")
+        snake_bodies.append(new_body)
+
+    for i in range(len(snake_bodies) - 1, 0, -1):
+        x = snake_bodies[i-1].xcor()
+        y = snake_bodies[i-1].ycor()
+        snake_bodies[i].goto(x, y)
+
+    if len(snake_bodies) > 0:
+        xhead = snake_head.xcor()
+        yhead = snake_head.ycor()
+        snake_bodies[0].goto(xhead, yhead)
 
     if snake_head.xcor() > 290 or snake_head.xcor() < -290 or snake_head.ycor() > 290 or snake_head.ycor() < -290:
         reset()
