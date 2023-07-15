@@ -4,7 +4,7 @@ from random import randint
 
 
 score = 0
-
+high_score = 0
 
 def make_turtle(turtle_shape, turtle_color):
     my_turtle = Turtle()
@@ -33,7 +33,7 @@ def move():
 
 def change_food_position():
     xposition = randint(-280, 280)
-    yposition = randint(-280, 280)
+    yposition = randint(-280, 230)
     food.goto(xposition, yposition)
 
 
@@ -58,9 +58,11 @@ def go_up():
     if snake_head.direction != "down":
         snake_head.direction = "up"
 
+
 def go_left():
     if snake_head.direction != "right":
         snake_head.direction = "left"
+
 
 def go_right():
     if snake_head.direction != "left":
@@ -76,6 +78,11 @@ def reset():
     snake_head.goto(0, 0)
     snake_head.direction = ""
 
+    for body in snake_bodies:
+        body.hideturtle()
+
+    snake_bodies.clear()
+
 
 main_surface.listen()
 main_surface.onkeypress(go_up, "Up")
@@ -83,14 +90,26 @@ main_surface.onkeypress(go_down, "Down")
 main_surface.onkeypress(go_right, "Right")
 main_surface.onkeypress(go_left, "Left")
 snake_bodies = []
+
+def onclose():
+    global running
+    running = False
+root = main_surface._root
+root.protocol("WM_DELETE_WINDOW", onclose)
+
+root.resizable(False, False)
+
+
 running = True
 while running == True:
     score_turtle.clear()
-    score_turtle.write(f"Score: {score}", align="center", font=48)
+    score_turtle.write(f"Score: {score}, HighScore:{high_score}", align="center", font=48)
 
     main_surface.update()
     if snake_head.distance(food) < 20:
         score += 1
+        if score > high_score:
+            high_score = score
         change_food_position()
         new_body = make_turtle("square", "cyan")
         snake_bodies.append(new_body)
@@ -110,4 +129,9 @@ while running == True:
         score = 0
 
     move()
+
+    for body in snake_bodies:
+        if snake_head.distance(body) < 20:
+            reset()
+            score = 0
     sleep(0.2)
