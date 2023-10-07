@@ -6,6 +6,7 @@ from random import randint
 score = 0
 high_score = 0
 
+
 def make_turtle(turtle_shape, turtle_color):
     my_turtle = Turtle()
     my_turtle.shape(turtle_shape)
@@ -91,9 +92,12 @@ main_surface.onkeypress(go_right, "Right")
 main_surface.onkeypress(go_left, "Left")
 snake_bodies = []
 
+
 def onclose():
     global running
     running = False
+
+
 root = main_surface._root
 root.protocol("WM_DELETE_WINDOW", onclose)
 
@@ -103,7 +107,8 @@ root.resizable(False, False)
 running = True
 while running == True:
     score_turtle.clear()
-    score_turtle.write(f"Score: {score}, HighScore:{high_score}", align="center", font=48)
+    score_turtle.write(
+        f"Score: {score}, HighScore:{high_score}", align="center", font=48)
 
     main_surface.update()
     if snake_head.distance(food) < 20:

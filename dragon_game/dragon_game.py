@@ -48,9 +48,10 @@ score_text = font.render(f"score:{score}", True, (255, 0, 0))
 score_rect = score_text.get_rect()
 score_rect.topleft = (WINDOW_WIDTH/2 + 100, 10)
 
-gameover_text = font.render(f"Game Over\nPress Eny Key To continue...", True, (255, 0, 0))
+gameover_text = font.render(
+    f"Game Over\nPress any Key To continue...", True, (255, 0, 0))
 gameover_rect = gameover_text.get_rect()
-gameover_rect.center = (WINDOW_WIDTH/2 , WINDOW_HEIGHT/2)
+gameover_rect.center = (WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
 
 
 mysound = pygame.mixer.Sound("sound.wav")
@@ -72,16 +73,26 @@ while running:
         lives -= 1
         egg_rect.center = (WINDOW_WIDTH + 100,
                            random.randint(100, WINDOW_HEIGHT-100))
-        
 
     if player_rect.colliderect(egg_rect):
         score += 1
         egg_rect.center = (WINDOW_WIDTH + 100,
                            random.randint(100, WINDOW_HEIGHT-100))
-        
 
     if lives == 0:
+        display_surface.blit(gameover_text, gameover_rect)
+        pygame.display.update()
+        is_paused = True
+        while is_paused:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    is_paused = False
+                    lives = 3
+                    score = 0
 
+                if event.type == pygame.QUIT:
+                    is_paused = False
+                    running = False
 
     score_text = font.render(f"score:{score}", True, (255, 0, 0))
     lives_text = font.render(f"Lives:{lives}", True, (255, 0, 0))
