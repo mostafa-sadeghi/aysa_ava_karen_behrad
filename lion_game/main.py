@@ -18,12 +18,15 @@ pygame.mixer.music.load("bgsound.mp3")
 pygame.mixer.music.set_volume(0.4)
 pygame.mixer.music.play(-1)
 
-font = pygame.font.Font("myfont.otf",48)
+font = pygame.font.Font("myfont.otf", 48)
 game_title = font.render("My Game", True, (255, 0, 0))
 game_title_rect = game_title.get_rect()
 game_title_rect.top = 0
 game_title_rect.centerx = WINDOW_WIDTH/2
 
+# TODO
+"یک متن دیگر در وسط صفحه نمایش دهید"
+"lion Game"
 
 running = True
 while running == True:
