@@ -19,4 +19,5 @@ class Player(Sprite):
         screen.blit(self.image, self.rect)
 
     def move(self):
+        #TODO حرکت بازیکن
         pass
