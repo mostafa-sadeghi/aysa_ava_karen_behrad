@@ -26,13 +26,30 @@ for i in range(4):
             )
 my_player = Player()
 
+
+
+
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    screen.fill((0,0,0))
     my_player.draw(screen)
+    monster_group.update()
     monster_group.draw(screen)
 
     pygame.display.update()
     clock.tick(FPS)
+
+#TODO
+"""
+با متد زیر مستطیل فضای بازی را بکشید
+pygame.draw.rect()
+پارامترها
+صفحه
+رنگ
+مختصات چهارگوش
+یعنی نقطه ابتدایی چهارگوش و طول و عرضش
+
+"""
