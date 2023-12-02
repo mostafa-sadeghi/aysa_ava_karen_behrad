@@ -9,8 +9,6 @@ class Game:
         self.monster_group = monster_group
         self.level_number = 0
         self.font = pygame.font.Font("assets/Abrushow.ttf")
-
-
         self.all_images = []
         blue_monster = pygame.image.load("assets/blue_monster.png")
         green_monster = pygame.image.load("assets/green_monster.png")
@@ -18,7 +16,6 @@ class Game:
         purple_monster = pygame.image.load("assets/purple_monster.png")
         self.all_images = [blue_monster, green_monster, orange_monster,
                     purple_monster]
-
     def start_new_level(self):
         self.level_number += 1
         for i in range(self.level_number):
@@ -28,7 +25,6 @@ class Game:
                         self.all_images[i],
                         self.monster_group
                         )
-               
     def draw(self,screen):
         score_text = self.font.render(f'Score:{self.score}', True, (247, 13,168))
         score_rect = score_text.get_rect(topleft = (10, 10))
